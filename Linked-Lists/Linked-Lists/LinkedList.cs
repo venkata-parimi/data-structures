@@ -9,7 +9,7 @@ namespace Linked_Lists
 	public class LinkedList
 	{
 		public Node head;
-		
+
 		public void printLinkedList()
 		{
 			if (head == null)
@@ -33,12 +33,12 @@ namespace Linked_Lists
 				Console.WriteLine("Dude try some positive integer for the creation of a linked list with some values in it...");
 			}
 
-			Node headNode = new Node(Utilities.GetRandomNumber());
+			Node headNode = new Node(Utilities.GetDoubleDigitRandomNumber());
 			Node currentNode = headNode;
 			for (int i = 0; i < size - 1; i++)
 			{
 				Node temp = currentNode;
-				temp.next = new Node(Utilities.GetRandomNumber());
+				temp.next = new Node(Utilities.GetDoubleDigitRandomNumber());
 				currentNode = temp.next;
 			}
 
@@ -48,7 +48,7 @@ namespace Linked_Lists
 
 		public void InserNodeAtTheStart(int data)
 		{
-			Node currentNode = new Node(Utilities.GetRandomNumber());
+			Node currentNode = new Node(Utilities.GetDoubleDigitRandomNumber());
 			if (this.head == null)
 			{
 				Console.WriteLine("The  Linked list is empty.the new node created will be the head and the linked list");
@@ -59,7 +59,7 @@ namespace Linked_Lists
 
 		public void InserNodeAtTheEnd(int data)
 		{
-			Node newNode = new Node(Utilities.GetRandomNumber());
+			Node newNode = new Node(Utilities.GetDoubleDigitRandomNumber());
 			if (this.head == null)
 			{
 				Console.WriteLine("The  Linked list is empty. create a linked list with some data and then try to print the same");
@@ -67,7 +67,7 @@ namespace Linked_Lists
 				return;
 			}
 			Node current = this.head;
-			while (current.next!= null)
+			while (current.next != null)
 			{
 				current = current.next;
 			}
@@ -78,8 +78,8 @@ namespace Linked_Lists
 
 		public void InsertNodeAfterGivenNode(Node givenNode, int data)
 		{
-			Node newNode = new Node(Utilities.GetRandomNumber());
-			if (this.head == null || givenNode ==null)
+			Node newNode = new Node(Utilities.GetDoubleDigitRandomNumber());
+			if (this.head == null || givenNode == null)
 			{
 				Console.WriteLine("The  Linked list is empty or the given node is null");
 				this.head = newNode;
@@ -104,11 +104,11 @@ namespace Linked_Lists
 			if (this.head == null)
 			{
 				Console.WriteLine("The  Linked list is empty");
-				return ;
+				return;
 			}
 			Node current = this.head;
 			Node previousElement = null;
-			while (current != null && current.data!=data)
+			while (current != null && current.data != data)
 			{
 				previousElement = current;
 				current = current.next;
@@ -140,7 +140,7 @@ namespace Linked_Lists
 				counter++;
 			}
 
-			if (current == null || counter <indexToStop)
+			if (current == null || counter < indexToStop)
 			{
 				Console.WriteLine("Sorry bro... Could not find the element you are asking for ");
 			}
@@ -208,7 +208,7 @@ namespace Linked_Lists
 				return false;
 			}
 
-			if(node.data==data)
+			if (node.data == data)
 			{
 				Console.WriteLine("Cool bro... Finally found the element you are asking for ");
 				return true;
@@ -289,6 +289,162 @@ namespace Linked_Lists
 
 			Console.WriteLine("Found an element at the index you are looking for ");
 			return current.data;
+		}
+
+		private int RetrieveMiddleNodeData()
+		{
+			Node fastPointer = this.head;
+			Node slowPointer = this.head;
+			while (fastPointer != null && fastPointer.next != null)
+			{
+				fastPointer = fastPointer.next.next;
+				slowPointer = slowPointer.next;
+			}
+			return slowPointer.data;
+		}
+
+		public int PrintNthFromLastNode(int nthIndex)
+		{
+			int linkedListLength = 0;
+			Node currentNode = this.head;
+			while (currentNode != null)
+			{
+				linkedListLength++;
+				currentNode = currentNode.next;
+			}
+			currentNode = this.head;
+			if (linkedListLength < nthIndex)
+			{
+				Console.WriteLine("Ask for an index lesser than the length of the linked list");
+				return -1;
+			}
+			for (int i = 0; i < linkedListLength - nthIndex + 1; i++)
+			{
+				currentNode = currentNode.next;
+			}
+
+			Console.WriteLine("Found the nth index and is on the retrun flight. Take care of it.");
+			return currentNode.data;
+		}
+
+		public int PrintNthFromLastNodeUsingTwoPointers(int nthIndex)
+		{
+			Node mainPointer = this.head;
+			Node currentNode = this.head;
+			int counter = 0;
+
+			while (counter < nthIndex)
+			{
+				if (currentNode == null)
+				{
+					Console.WriteLine("Dude forget it. your expectations are way beyond the limit.");
+					return -1;
+				}
+				currentNode = currentNode.next;
+			}
+			while (currentNode != null)
+			{
+				currentNode = currentNode.next;
+				mainPointer = mainPointer.next;
+			}
+
+			Console.WriteLine("Found the nth index and is on the retrun flight. Take care of it.");
+			return mainPointer.data;
+		}
+
+		public void DeleteLinkedList()
+		{
+			this.head = null;
+		}
+
+		public int GetItemRepetitionCount(int itemToTrace)
+		{
+			Node currentNode = this.head;
+			int counter = 0;
+			if (this.head == null)
+			{
+				Console.WriteLine("Dude.. Do you expect me to look for repetion in an empty list???");
+				return -1;
+			}
+
+			while (currentNode != null)
+			{
+				if (currentNode.data == itemToTrace)
+				{
+					counter++;
+				}
+			}
+
+			return counter;
+		}
+
+		public void ReverseLinkedList()
+		{
+			Node currentNode = this.head;
+			Node nextNode = null;
+			Node previousNode = null;
+			if (head == null)
+			{
+				Console.WriteLine("I dont how to reverse an empty linked list. Do you know how to??");
+			}
+			while (currentNode != null)
+			{
+				nextNode = currentNode.next;
+				currentNode.next = previousNode;
+				previousNode = currentNode;
+				currentNode = nextNode;
+			}
+			this.head = previousNode;
+			Console.WriteLine("Finally able to reverse the linked list.. Thanks god..");
+		}
+
+		public void DetectLoopUsingFloydsCycle()
+		{
+			Node fastPointer = this.head;
+			Node slowPointer = this.head;
+			while (fastPointer!=null && fastPointer.next!=null)
+			{
+				if(fastPointer==slowPointer)
+				{
+					Console.WriteLine("Found the loop bravoooo.....");
+					return;
+				}
+
+				fastPointer = fastPointer.next.next;
+				slowPointer = slowPointer.next;
+			}
+			Console.WriteLine("Sorry for disappointing bro..There is no cyclic stuff as you are expecting...");
+		}
+
+		// Not so sure of the code
+		public void InsertDataInSortedLinkedList(int data)
+		{
+			Node currentNode = this.head;
+			//Node previousNode = null;
+			Node newNode = new Node(data);
+			if(this.head== null)
+			{
+				this.head = newNode;
+				return;
+			}
+
+			while (currentNode!=null && currentNode.next!=null)
+			{
+				if(currentNode.data>=data && currentNode.next.data<=data)
+				{
+					newNode.next = currentNode.next;
+					currentNode.next = newNode;
+					return;
+				}
+				currentNode = currentNode.next;
+			}
+		}
+		public void DeleteNodeWithOnlyOnePointer(Node node)
+		{
+			Node nextNode = node.next;
+			node.data = nextNode.data;
+			node.next = nextNode.next.next;
+			nextNode = null;
 		}
 	}
 }

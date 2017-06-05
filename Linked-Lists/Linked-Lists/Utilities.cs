@@ -11,14 +11,34 @@ namespace Linked_Lists
 		private static Random randomNumber;
 
 		
-		public static int GetRandomNumber()
+		public static int GetDoubleDigitRandomNumber()
 		{
 			if(randomNumber== null)
 			{
 				randomNumber = new Random();
 			}
 
-			return randomNumber.Next(0, 1000);
+			return randomNumber.Next(10, 99);
+		}
+
+		public static int GetSingleDigitRandomNumber()
+		{
+			if (randomNumber == null)
+			{
+				randomNumber = new Random();
+			}
+
+			return randomNumber.Next(0, 9);
+		}
+
+		public static int GetTripleDigitRandomNumber()
+		{
+			if (randomNumber == null)
+			{
+				randomNumber = new Random();
+			}
+
+			return randomNumber.Next(100, 999);
 		}
 	}
 }
