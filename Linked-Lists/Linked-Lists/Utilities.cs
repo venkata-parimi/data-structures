@@ -81,4 +81,11 @@ namespace Linked_Lists
 			Console.WriteLine("Done with the printing of the linked list..");
 		}
 	}
+	public enum LinkedListOperation
+	{
+		None =0,
+		Add=1,
+		Subtract=2,
+		Multiply=3
+	}
 }
