@@ -446,5 +446,10 @@ namespace Linked_Lists
 			node.next = nextNode.next.next;
 			nextNode = null;
 		}
+
+		public void	VerifyIfLinkedListIsPalindromeUsingStack()
+		{
+			
+		}
 	}
 }
